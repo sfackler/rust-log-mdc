@@ -63,14 +63,14 @@ pub fn insert<K, V>(key: K, value: V) -> Option<String>
 /// drop(guard);
 /// log_mdc::get("foo", |v| assert_eq!(Some("a"), v));
 /// ```
-pub fn insert_scoped<K, V>(key: K, value: V) -> EntryGuard
+pub fn insert_scoped<K, V>(key: K, value: V) -> InsertGuard
     where K: Into<String>,
           V: Into<String>
 {
     let key = key.into();
     let old_value = insert(&*key, value);
 
-    EntryGuard {
+    InsertGuard {
         key: Some(key),
         old_value: old_value,
     }
@@ -124,12 +124,12 @@ pub fn iter<F>(mut f: F)
 }
 
 /// A guard object which restores an MDC entry when dropped.
-pub struct EntryGuard {
+pub struct InsertGuard {
     key: Option<String>,
     old_value: Option<String>,
 }
 
-impl Drop for EntryGuard {
+impl Drop for InsertGuard {
     fn drop(&mut self) {
         let key = self.key.take().unwrap();
         match self.old_value.take() {
