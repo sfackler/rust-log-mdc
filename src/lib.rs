@@ -8,6 +8,21 @@
 //! different threads. Generating an ID for each request and storing it in the
 //! MDC makes it easy to partition log messages on a per-request basis.
 //!
+//! # Examples
+//!
+//! Forwarding the contents of the MDC to a new thread:
+//!
+//! ```
+//! use std::thread;
+//!
+//! let mut mdc = vec![];
+//! log_mdc::iter(|k, v| mdc.push((k.to_owned(), v.to_owned())));
+//!
+//! thread::spawn(|| {
+//!     log_mdc::extend(mdc);
+//! });
+//! ```
+//!
 //! [log4rs]: https://crates.io/crates/log4rs
 use std::borrow::Borrow;
 use std::cell::RefCell;
@@ -59,6 +74,20 @@ pub fn insert_scoped<K, V>(key: K, value: V) -> EntryGuard
         key: Some(key),
         old_value: old_value,
     }
+}
+
+/// Extends the MDC with new entries.
+pub fn extend<K, V, I>(entries: I)
+    where K: Into<String>,
+          V: Into<String>,
+          I: IntoIterator<Item = (K, V)>
+{
+    MDC.with(|m| {
+        let mut m = m.borrow_mut();
+        for (key, value) in entries {
+            m.insert(key.into(), value.into());
+        }
+    })
 }
 
 /// Retrieves a value from the MDC.
