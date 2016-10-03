@@ -97,7 +97,12 @@ pub fn extend<K, V, I>(entries: I)
 /// ```
 /// log_mdc::insert("foo", "a");
 ///
-/// let guard = log_mdc::extend_scoped([("foo", "b"), ("fizz", "buzz")].iter().cloned());
+/// let entries = [
+///     ("foo", "b"),
+///     ("fizz", "buzz"),
+/// ];
+///
+/// let guard = log_mdc::extend_scoped(entries.iter().cloned());
 /// log_mdc::get("foo", |v| assert_eq!(Some("b"), v));
 /// log_mdc::get("fizz", |v| assert_eq!(Some("buzz"), v));
 ///
