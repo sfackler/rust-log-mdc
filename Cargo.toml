@@ -1,0 +1,11 @@
+[package]
+name = "log-mdc"
+version = "0.1.0"
+authors = ["Steven Fackler <sfackler@gmail.com>"]
+description = "A mapped diagnostic context (MDC) for use with the `log` crate"
+license = "MIT/Apache-2.0"
+repository = "https://github.com/sfackler/rust-log-mdc"
+documentation = "https://sfackler.github.io/rust-log-mdc/doc/v0.1.0/log_mdc"
+readme = "README.md"
+
+[dependencies]
