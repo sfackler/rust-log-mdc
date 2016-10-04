@@ -24,6 +24,7 @@
 //! ```
 //!
 //! [log4rs]: https://crates.io/crates/log4rs
+#![doc(html_root_url="https://sfackler.github.io/rust-log-mdc/doc/v0.1.0")]
 #![warn(missing_docs)]
 
 use std::borrow::Borrow;
