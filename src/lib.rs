@@ -164,6 +164,13 @@ pub fn iter<F>(mut f: F)
     })
 }
 
+/// Invokes the provided closure with read-only access to all entries in the MDC.
+pub fn with<F, T>(f: F) -> T
+    where F: FnOnce(&HashMap<String, String>) -> T
+{
+    MDC.with(|m| f(&*m.borrow()))
+}
+
 /// A guard object which restores an MDC entry when dropped.
 pub struct InsertGuard {
     key: Option<String>,
