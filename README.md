@@ -10,6 +10,8 @@ For example, a web server may process many requests simultaneously on
 different threads. Generating an ID for each request and storing it in the
 MDC makes it easy to partition log messages on a per-request basis.
 
+**This crate also provide [global](src/global.rs) MDC for all thread output.**
+
 [log4rs]: https://crates.io/crates/log4rs
 
 ## License
