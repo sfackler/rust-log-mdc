@@ -8,7 +8,7 @@
 //! different threads. Generating an ID for each request and storing it in the
 //! MDC makes it easy to partition log messages on a per-request basis.
 //!
-//! ** This crate also provide [`global`] MDC for all thread output. **
+//! **This crate also provide [`global`] MDC for all thread output.**
 //!
 //! # Examples
 //!
